@@ -2,6 +2,7 @@ import { useState } from "react";
 import confetti from "canvas-confetti";
 import * as icons from "react-icons/gi";
 import { Tile } from "./Tile";
+import "animate.css";
 
 export const possibleTileContents = [
   icons.GiHearts,
@@ -19,9 +20,20 @@ export const possibleTileContents = [
 export function StartScreen({ start }) {
   return (
     <div>
-      <button onClick={start} className="bg-gray-400 text-white p-3">
-        Play
-      </button>
+      <div className=" flex items-center justify-center h-screen bg-white">
+        <div className="flex flex-col w-[80%] md:w-[55%] lg:w-[40%] xl:w-[30%] rounded-lg items-center justify-between text-xl bg-red-100 md:h-[60%] py-14 md:py-20 animate__animated animate__tada">
+          <h1 className="text-3xl font-bold text-pink-500 mb-4">Memory</h1>
+          <h2 className="text-pink-500 font-medium mb-4">
+            Flip over tiles looking for pairs
+          </h2>
+          <button
+            onClick={start}
+            className="bg-pink-500 w-[200px] md:w-[250px] text-white p-3 rounded-full mt-10"
+          >
+            Play
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -109,12 +121,21 @@ export function PlayScreen({ end }) {
 
   return (
     <>
-      <div>
-        {getTiles(6).map((tile, i) => (
-          <Tile key={i} flip={() => flip(i)} {...tile} />
-        ))}
+      <div className="w-full h-screen flex flex-col items-center justify-center">
+        <div className="flex">
+          <h3 className="mb-4 font-bold text-[#6466F1]">Tries</h3> &nbsp;
+          <p className="bg-[#c7d2ff] text-[#6466F1] font-bold rounded w-6 text-center h-6">
+            {tryCount}
+          </p>
+        </div>
+        <div className="max-w-full rounded md:max-w-screen-lg bg-[#EFF1FF] p-4 animate__animated animate__rotateIn">
+          <div className="grid grid-cols-4 gap-4 justify-items-center">
+            {getTiles(16).map((tile, i) => (
+              <Tile key={i} flip={() => flip(i)} {...tile} />
+            ))}
+          </div>
+        </div>
       </div>
-      {tryCount}
     </>
   );
 }
